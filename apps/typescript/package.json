@@ -1,0 +1,11 @@
+{
+  "name": "enterprise-api-client",
+  "version": "1.0.0",
+  "description": "Strongly typed API client module",
+  "main": "client.ts",
+  "scripts": {
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "license": "MIT"
+}

@@ -1,0 +1,49 @@
+---
+- name: Deploy and configure production Nginx web server
+  hosts: webservers
+  become: true
+  vars:
+    app_environment: staging
+    web_root: /var/www/html
+    nginx_service_name: nginx
+
+  tasks:
+    - name: Update apt package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure Nginx package is installed
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Ensure web document root directory exists
+      ansible.builtin.file:
+        path: "{{ web_root }}"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: "0755"
+
+    - name: Deploy custom HTML index template with strict file permissions
+      ansible.builtin.template:
+        src: templates/index.html.j2
+        dest: "{{ web_root }}/index.html"
+        owner: www-data
+        group: www-data
+        mode: "0644"
+      notify: Reload Nginx service
+
+    - name: Ensure Nginx service is enabled and started via systemd
+      ansible.builtin.systemd:
+        name: "{{ nginx_service_name }}"
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Reload Nginx service
+      ansible.builtin.systemd:
+        name: "{{ nginx_service_name }}"
+        state: reloaded
