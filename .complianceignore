@@ -1,0 +1,6 @@
+# Compliance platform discovery exclusions
+# k8s/helm contains Helm template files with '{{' markers.
+# Excluding templates from general discovery prevents false-positive Helm markers
+# from flagging static Kubernetes discovery as ambiguous, while allowing
+# helm/service-chart (Chart.yaml) to be audited natively.
+k8s/helm/**/templates/
