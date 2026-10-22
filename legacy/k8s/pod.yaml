@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: legacy-debug
+spec:
+  hostNetwork: true
+  hostPID: true
+  containers:
+    - name: shell
+      image: ubuntu:latest
+      command: ["sleep", "infinity"]
+      securityContext:
+        privileged: true
+        runAsUser: 0
+        allowPrivilegeEscalation: true
+      env:
+        - name: DB_PASSWORD
+          value: hunter2
+      volumeMounts:
+        - name: host
+          mountPath: /host
+  volumes:
+    - name: host
+      hostPath:
+        path: /

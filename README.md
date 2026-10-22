@@ -58,3 +58,12 @@ Each component is self-contained, syntactically valid, and carries real business
 | `scripts/powershell/` | PowerShell | Artifact synchronization tool supporting pipeline input, folder creation, and error traps. |
 | `scripts/shell/` | Bash | Log rotation utility compressing logs older than 7 days and deleting archives older than 30 days. |
 | `docs/` | Markdown | Comprehensive architecture, API contracts, and getting started procedures. |
+
+---
+
+## Intentionally non-compliant zone (`legacy/`)
+
+`legacy/` holds deliberately bad code, one audit root per technology, so that every
+control of the compliance engine is exercised twice: it must pass on the clean
+folders above and report findings on `legacy/`. See `legacy/README.md` for the
+findings each folder must produce. Do not fix this code.
