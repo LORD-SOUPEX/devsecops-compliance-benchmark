@@ -18,6 +18,11 @@ updates:
         patterns: ["*"]
     commit-message:
       prefix: "build(deps)"
+    # Les versions majeures cassent le build ou demandent une migration manuelle :
+    # elles se font à la main, jamais dans le groupe mensuel.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "pip"
     directory: "/apps/python"
@@ -33,6 +38,11 @@ updates:
         patterns: ["*"]
     commit-message:
       prefix: "build(deps)"
+    # Les versions majeures cassent le build ou demandent une migration manuelle :
+    # elles se font à la main, jamais dans le groupe mensuel.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "gomod"
     directory: "/apps/go"
@@ -48,6 +58,11 @@ updates:
         patterns: ["*"]
     commit-message:
       prefix: "build(deps)"
+    # Les versions majeures cassent le build ou demandent une migration manuelle :
+    # elles se font à la main, jamais dans le groupe mensuel.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "docker"
     directory: "/containers/docker"
@@ -63,3 +78,8 @@ updates:
         patterns: ["*"]
     commit-message:
       prefix: "build(deps)"
+    # Les versions majeures cassent le build ou demandent une migration manuelle :
+    # elles se font à la main, jamais dans le groupe mensuel. Pour les images, seuls les patchs passent.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
