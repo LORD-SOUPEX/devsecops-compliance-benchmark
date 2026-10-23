@@ -1,5 +1,5 @@
 # Stage 1: Dependency resolution and compilation
-FROM python:3.12.9-slim-bookworm AS builder
+FROM python:3.14.7-slim-bookworm AS builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -14,7 +14,7 @@ RUN python -m venv /opt/venv && \
 
 
 # Stage 2: Hardened runtime environment
-FROM python:3.12.9-slim-bookworm AS runtime
+FROM python:3.14.7-slim-bookworm AS runtime
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
